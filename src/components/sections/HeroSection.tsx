@@ -201,9 +201,8 @@ function EngineeringCore() {
   );
 }
 
-function CinematicVideoPlayer() {
+function BackgroundVideoPlayer({ isMuted, setIsMuted }: { isMuted: boolean; setIsMuted: (muted: boolean) => void }) {
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [isMuted, setIsMuted] = useState(false); // Default UNMUTED as requested
 
   useEffect(() => {
     const video = videoRef.current;
@@ -228,25 +227,10 @@ function CinematicVideoPlayer() {
       window.addEventListener("click", unmuteOnFirstClick, { once: true });
       window.addEventListener("touchstart", unmuteOnFirstClick, { once: true });
     });
-  }, []);
-
-  const toggleMute = () => {
-    if (videoRef.current) {
-      const nextMuted = !isMuted;
-      videoRef.current.muted = nextMuted;
-      setIsMuted(nextMuted);
-    }
-  };
+  }, [setIsMuted]);
 
   return (
-    <div
-      className="relative w-full max-w-[480px] aspect-[4/5] sm:aspect-square mx-auto rounded-3xl overflow-hidden shadow-2xl transition-all duration-500 hover:shadow-indigo-500/20"
-      style={{
-        background: "var(--color-bg-card)",
-        border: "1px solid rgba(129, 140, 248, 0.25)",
-      }}
-    >
-      {/* Continuous Smooth Video Playback — Zero Mouse Interference */}
+    <div className="absolute inset-0 w-full h-full overflow-hidden pointer-events-none z-0">
       <video
         ref={videoRef}
         src="/Landing_Video.mp4"
@@ -257,44 +241,29 @@ function CinematicVideoPlayer() {
         preload="auto"
         disablePictureInPicture
         disableRemotePlayback
-        className="w-full h-full object-cover rounded-3xl pointer-events-none select-none"
+        className="w-full h-full object-cover select-none"
         style={{
           transform: "translate3d(0, 0, 0)",
           willChange: "transform",
           backfaceVisibility: "hidden",
         }}
       />
-
-      {/* Subtle Gradient Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20 pointer-events-none" />
-
-      {/* Floating Mute / Unmute Button on Bottom Right */}
-      <div className="absolute bottom-4 right-4 z-20">
-        <button
-          onClick={toggleMute}
-          className="flex items-center gap-2 px-4 py-2 rounded-full bg-black/50 backdrop-blur-md border border-white/20 text-white text-xs font-semibold hover:bg-white/20 transition-all duration-200"
-          aria-label={isMuted ? "Unmute Sound" : "Mute Sound"}
-        >
-          {isMuted ? (
-            <>
-              <VolumeX size={16} className="text-rose-400" />
-              <span>Unmute Sound</span>
-            </>
-          ) : (
-            <>
-              <Volume2 size={16} className="text-emerald-400 animate-pulse" />
-              <span>Mute Sound</span>
-            </>
-          )}
-        </button>
-      </div>
+      {/* High-Contrast Gradient Overlay for Legibility */}
+      <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/65 to-black/40 backdrop-blur-[1px]" />
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[var(--color-bg-primary)] to-transparent" />
     </div>
   );
 }
 
 export default function HeroSection() {
+  const [isMuted, setIsMuted] = useState(false);
+
   const scrollToWork = () => {
     document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  const toggleMute = () => {
+    setIsMuted(!isMuted);
   };
 
   return (
@@ -303,150 +272,139 @@ export default function HeroSection() {
       className="relative min-h-screen flex items-center overflow-hidden"
       style={{ paddingTop: "6rem" }}
     >
-      {/* Background */}
-      <div className="absolute inset-0">
+      {/* Full-Screen Background Video */}
+      <BackgroundVideoPlayer isMuted={isMuted} setIsMuted={setIsMuted} />
+
+      {/* Particle Overlay */}
+      <div className="absolute inset-0 pointer-events-none z-[1]">
         <ParticleField />
-        {/* Gradient overlays */}
-        <div
-          className="absolute inset-0"
-          style={{
-            background:
-              "radial-gradient(ellipse at 20% 50%, rgba(99,102,241,0.08) 0%, transparent 50%), radial-gradient(ellipse at 80% 20%, rgba(167,139,250,0.06) 0%, transparent 50%)",
-          }}
-        />
-        <div
-          className="absolute bottom-0 left-0 right-0 h-40"
-          style={{
-            background: "linear-gradient(to top, var(--color-bg-primary), transparent)",
-          }}
-        />
       </div>
 
-      {/* Content */}
-      <div className="section-container relative z-10">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-8 items-center min-h-[80vh]">
-          {/* Text Content */}
+      {/* Hero Content in Front */}
+      <div className="section-container relative z-10 w-full">
+        <div className="max-w-3xl py-12">
+          {/* Status badge */}
           <motion.div
-            initial={{ opacity: 0, x: -40 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="order-2 lg:order-1"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2, duration: 0.6 }}
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-8 backdrop-blur-md"
+            style={{
+              background: "rgba(255, 255, 255, 0.12)",
+              border: "1px solid rgba(255, 255, 255, 0.2)",
+            }}
           >
-            {/* Status badge */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2, duration: 0.6 }}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-8"
-              style={{
-                background: "var(--color-accent-glow)",
-                border: "1px solid rgba(129,140,248,0.15)",
-              }}
-            >
-              <span className="w-2 h-2 rounded-full bg-emerald-400 pulse-glow" />
-              <span className="text-sm font-medium text-[var(--color-text-secondary)]">
-                Open to opportunities
+            <span className="w-2 h-2 rounded-full bg-emerald-400 pulse-glow" />
+            <span className="text-sm font-medium text-white/90">
+              Open to opportunities
+            </span>
+          </motion.div>
+
+          {/* Main heading */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3, duration: 0.7 }}
+          >
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold leading-[1.1] tracking-tight mb-6 text-white drop-shadow-md">
+              <span className="text-white/70 text-lg sm:text-xl font-normal block mb-3">
+                Hi, I&apos;m
               </span>
-            </motion.div>
-
-            {/* Main heading */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3, duration: 0.7 }}
-            >
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold leading-[1.1] tracking-tight mb-6">
-                <span className="text-[var(--color-text-muted)] text-lg sm:text-xl font-normal block mb-3">
-                  Hi, I&apos;m
-                </span>
-                <span className="text-[var(--color-text-primary)]">
-                  {personalInfo.name}
-                </span>
-                <span className="text-[var(--color-accent-primary)]">.</span>
-              </h1>
-            </motion.div>
-
-            {/* Role rotator */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5, duration: 0.7 }}
-              className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-6"
-            >
-              <RoleRotator />
-            </motion.div>
-
-            {/* Tagline */}
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.6, duration: 0.7 }}
-              className="text-base sm:text-lg max-w-lg leading-relaxed mb-10"
-              style={{ color: "var(--color-text-secondary)" }}
-            >
-              {personalInfo.tagline}
-            </motion.p>
-
-            {/* CTA Buttons */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.7, duration: 0.7 }}
-              className="flex flex-wrap gap-4"
-            >
-              <button
-                onClick={scrollToWork}
-                className="btn btn-primary group"
-                id="hero-explore-btn"
-              >
-                <Rocket size={18} />
-                Explore My Work
-                <ExternalLink
-                  size={14}
-                  className="opacity-0 group-hover:opacity-100 transition-opacity -ml-1"
-                />
-              </button>
-              <a
-                href={personalInfo.resumeUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn btn-secondary"
-                id="hero-resume-btn"
-              >
-                <FileText size={18} />
-                View Resume
-              </a>
-            </motion.div>
-
-            {/* Quick stats */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 1, duration: 0.8 }}
-              className="flex gap-8 mt-12 pt-8"
-              style={{ borderTop: "1px solid var(--color-border)" }}
-            >
-              {[
-                { value: "9.1", label: "CGPA (B.E. CSE)" },
-                { value: "IIT Mandi", label: "AI Minor Degree" },
-                { value: "Full Stack", label: "Developer Intern (Krytil)" },
-              ].map((stat) => (
-                <div key={stat.label}>
-                  <div className="text-xl font-bold gradient-text">{stat.value}</div>
-                  <div className="text-xs text-[var(--color-text-muted)] mt-1">{stat.label}</div>
-                </div>
-              ))}
-            </motion.div>
+              <span>{personalInfo.name}</span>
+              <span className="text-[var(--color-accent-primary)]">.</span>
+            </h1>
           </motion.div>
 
+          {/* Role rotator */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.4, duration: 1, ease: [0.16, 1, 0.3, 1] }}
-            className="order-1 lg:order-2 flex justify-center w-full"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5, duration: 0.7 }}
+            className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-6 text-white drop-shadow-sm"
           >
-            <CinematicVideoPlayer />
+            <RoleRotator />
           </motion.div>
+
+          {/* Tagline */}
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.6, duration: 0.7 }}
+            className="text-base sm:text-lg max-w-xl leading-relaxed mb-10 text-white/85 drop-shadow"
+          >
+            {personalInfo.tagline}
+          </motion.p>
+
+          {/* CTA Buttons */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.7, duration: 0.7 }}
+            className="flex flex-wrap gap-4"
+          >
+            <button
+              onClick={scrollToWork}
+              className="btn btn-primary group shadow-lg shadow-indigo-500/30"
+              id="hero-explore-btn"
+            >
+              <Rocket size={18} />
+              Explore My Work
+              <ExternalLink
+                size={14}
+                className="opacity-0 group-hover:opacity-100 transition-opacity -ml-1"
+              />
+            </button>
+            <a
+              href={personalInfo.resumeUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn bg-white/10 hover:bg-white/20 text-white border border-white/30 backdrop-blur-md transition-all duration-200"
+              id="hero-resume-btn"
+            >
+              <FileText size={18} />
+              View Resume
+            </a>
+          </motion.div>
+
+          {/* Quick stats */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1, duration: 0.8 }}
+            className="flex flex-wrap gap-8 mt-12 pt-8 border-t border-white/15"
+          >
+            {[
+              { value: "9.1", label: "CGPA (B.E. CSE)" },
+              { value: "IIT Mandi", label: "AI Minor Degree" },
+              { value: "Full Stack", label: "Developer Intern (Krytil)" },
+            ].map((stat) => (
+              <div key={stat.label}>
+                <div className="text-xl font-bold text-white drop-shadow-sm">{stat.value}</div>
+                <div className="text-xs text-white/70 mt-1">{stat.label}</div>
+              </div>
+            ))}
+          </motion.div>
+        </div>
+
+        {/* Floating Mute / Unmute Button in Hero */}
+        <div className="absolute bottom-6 right-6 z-20">
+          <button
+            onClick={toggleMute}
+            className="flex items-center gap-2 px-4 py-2 rounded-full bg-black/60 backdrop-blur-md border border-white/20 text-white text-xs font-semibold hover:bg-white/30 transition-all duration-200 shadow-xl"
+            aria-label={isMuted ? "Unmute Sound" : "Mute Sound"}
+          >
+            {isMuted ? (
+              <>
+                <VolumeX size={16} className="text-rose-400" />
+                <span>Unmute Sound</span>
+              </>
+            ) : (
+              <>
+                <Volume2 size={16} className="text-emerald-400 animate-pulse" />
+                <span>Mute Sound</span>
+              </>
+            )}
+          </button>
         </div>
 
         {/* Scroll indicator */}
@@ -454,14 +412,14 @@ export default function HeroSection() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.5, duration: 0.8 }}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+          className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-10"
         >
-          <span className="text-xs font-mono text-[var(--color-text-muted)]">scroll</span>
+          <span className="text-xs font-mono text-white/60">scroll</span>
           <motion.div
             animate={{ y: [0, 8, 0] }}
             transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
           >
-            <ArrowDown size={16} className="text-[var(--color-text-muted)]" />
+            <ArrowDown size={16} className="text-white/60" />
           </motion.div>
         </motion.div>
       </div>
