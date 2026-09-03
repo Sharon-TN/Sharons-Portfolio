@@ -31,19 +31,42 @@ export default function SectionWrapper({
       ref={ref}
       className={`section-padding relative overflow-hidden ${className}`}
     >
-      <div className={`section-container ${centered ? "text-center" : ""}`}>
+      {/* Multi-Color Ambient Lighting & Grid Mesh */}
+      <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
+        <div
+          className="absolute -top-32 -left-20 w-[500px] h-[500px] rounded-full opacity-25 blur-[120px]"
+          style={{
+            background: "radial-gradient(circle, rgba(244,63,94,0.5) 0%, rgba(168,85,247,0.3) 60%, transparent 80%)",
+          }}
+        />
+        <div
+          className="absolute top-1/3 -right-20 w-[500px] h-[500px] rounded-full opacity-25 blur-[120px]"
+          style={{
+            background: "radial-gradient(circle, rgba(6,182,212,0.5) 0%, rgba(99,102,241,0.3) 60%, transparent 80%)",
+          }}
+        />
+        <div
+          className="absolute -bottom-32 left-1/3 w-[600px] h-[600px] rounded-full opacity-20 blur-[140px]"
+          style={{
+            background: "radial-gradient(circle, rgba(168,85,247,0.4) 0%, rgba(244,63,94,0.2) 60%, transparent 80%)",
+          }}
+        />
+        <div className="absolute inset-0 bg-grid opacity-30" />
+      </div>
+
+      <div className="section-container relative z-10">
         {(label || title || subtitle) && (
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-            className={centered ? "flex flex-col items-center" : ""}
+            className={centered ? "flex flex-col items-center mb-6" : "mb-6"}
           >
             {label && (
               <div className="section-label">{label}</div>
             )}
             {title && (
-              <h2 className="section-title">{title}</h2>
+              <h2 className="section-title text-[var(--color-text-primary)]">{title}</h2>
             )}
             {subtitle && (
               <p className="section-subtitle">{subtitle}</p>

@@ -250,7 +250,17 @@ function BackgroundVideoPlayer({ isMuted, setIsMuted }: { isMuted: boolean; setI
       />
       {/* High-Contrast Gradient Overlay for Legibility */}
       <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/65 to-black/40 backdrop-blur-[1px]" />
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[var(--color-bg-primary)] to-transparent" />
+      
+      {/* Sleek Curved Wave Transition into Next Section */}
+      <div className="absolute -bottom-1 left-0 right-0 w-full overflow-hidden leading-none z-10 pointer-events-none">
+        <svg
+          viewBox="0 0 1440 90"
+          className="w-full h-12 sm:h-16 md:h-20 text-[var(--color-bg-primary)] fill-current"
+          preserveAspectRatio="none"
+        >
+          <path d="M0,35 C320,90 720,10 1120,60 C1280,80 1380,45 1440,35 L1440,90 L0,90 Z" />
+        </svg>
+      </div>
     </div>
   );
 }

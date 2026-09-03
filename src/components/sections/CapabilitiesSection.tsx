@@ -6,10 +6,10 @@ import { capabilities } from "@/data/portfolio";
 import SectionWrapper from "@/components/ui/SectionWrapper";
 
 const iconMap: Record<string, React.ReactNode> = {
-  layers: <Layers size={24} />,
-  palette: <Palette size={24} />,
-  server: <Server size={24} />,
-  brain: <Brain size={24} />,
+  layers: <Layers size={22} />,
+  palette: <Palette size={22} />,
+  server: <Server size={22} />,
+  brain: <Brain size={22} />,
 };
 
 const gradientColors = [
@@ -27,7 +27,7 @@ export default function CapabilitiesSection() {
       title="Building end-to-end digital solutions"
       subtitle="From concept to deployment, I build products that solve real problems with modern technologies."
     >
-      <div className="grid sm:grid-cols-2 gap-5 mt-12">
+      <div className="grid sm:grid-cols-2 gap-5 mt-10">
         {capabilities.map((cap, i) => (
           <motion.div
             key={cap.id}
@@ -35,34 +35,45 @@ export default function CapabilitiesSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-50px" }}
             transition={{ delay: i * 0.1, duration: 0.5 }}
-            className="group relative p-6 sm:p-8 rounded-2xl overflow-hidden transition-all duration-500 hover:-translate-y-1"
+            className="group relative p-6 sm:p-8 rounded-none overflow-hidden transition-all duration-300 hover:-translate-y-1.5"
             style={{
               background: "var(--color-bg-card)",
               border: "1px solid var(--color-border)",
+              borderRadius: "2px", // Crisp sharp rectangle edges
+              boxShadow: "var(--shadow-sm)",
             }}
             onMouseEnter={(e) => {
-              (e.currentTarget as HTMLElement).style.borderColor = "var(--color-border-active)";
-              (e.currentTarget as HTMLElement).style.boxShadow = `0 0 40px rgba(99,102,241,0.08)`;
+              (e.currentTarget as HTMLElement).style.borderColor = "var(--color-border-hover)";
+              (e.currentTarget as HTMLElement).style.boxShadow = `0 8px 30px rgba(0, 0, 0, 0.08), 0 0 20px ${gradientColors[i].from}15`;
             }}
             onMouseLeave={(e) => {
               (e.currentTarget as HTMLElement).style.borderColor = "var(--color-border)";
-              (e.currentTarget as HTMLElement).style.boxShadow = "none";
+              (e.currentTarget as HTMLElement).style.boxShadow = "var(--shadow-sm)";
             }}
           >
-            {/* Background gradient on hover */}
+            {/* Top Accent Line */}
             <div
-              className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"
+              className="absolute top-0 left-0 right-0 h-[3px] opacity-0 group-hover:opacity-100 transition-opacity duration-300"
               style={{
-                background: `radial-gradient(ellipse at 30% 0%, ${gradientColors[i].from}08, transparent 60%)`,
+                background: `linear-gradient(90deg, ${gradientColors[i].from}, ${gradientColors[i].to})`,
               }}
             />
 
-            {/* Icon */}
+            {/* Background gradient on hover */}
             <div
-              className="relative z-10 w-12 h-12 rounded-xl flex items-center justify-center mb-5 transition-transform duration-300 group-hover:scale-110"
+              className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+              style={{
+                background: `radial-gradient(ellipse at 30% 0%, ${gradientColors[i].from}10, transparent 65%)`,
+              }}
+            />
+
+            {/* Sharp Rectangular Icon Badge */}
+            <div
+              className="relative z-10 w-11 h-11 rounded-none flex items-center justify-center mb-5 transition-transform duration-300 group-hover:scale-105"
               style={{
                 background: `linear-gradient(135deg, ${gradientColors[i].from}20, ${gradientColors[i].to}10)`,
-                border: `1px solid ${gradientColors[i].from}20`,
+                border: `1px solid ${gradientColors[i].from}30`,
+                borderRadius: "2px",
                 color: gradientColors[i].from,
               }}
             >
@@ -70,22 +81,23 @@ export default function CapabilitiesSection() {
             </div>
 
             {/* Content */}
-            <h3 className="relative z-10 text-lg font-semibold text-[var(--color-text-primary)] mb-3">
+            <h3 className="relative z-10 text-lg font-bold text-[var(--color-text-primary)] mb-2 group-hover:text-[var(--color-accent-primary)] transition-colors">
               {cap.title}
             </h3>
             <p className="relative z-10 text-sm text-[var(--color-text-secondary)] leading-relaxed mb-5">
               {cap.description}
             </p>
 
-            {/* Technologies */}
+            {/* Technologies in sharp rectangular tags */}
             <div className="relative z-10 flex flex-wrap gap-2">
               {cap.technologies.map((tech) => (
                 <span
                   key={tech}
-                  className="tag"
+                  className="px-2.5 py-1 text-xs font-mono font-medium transition-colors"
                   style={{
-                    background: `${gradientColors[i].from}08`,
-                    borderColor: `${gradientColors[i].from}15`,
+                    background: `${gradientColors[i].from}12`,
+                    border: `1px solid ${gradientColors[i].from}25`,
+                    borderRadius: "2px",
                     color: gradientColors[i].from,
                   }}
                 >
@@ -94,11 +106,11 @@ export default function CapabilitiesSection() {
               ))}
             </div>
 
-            {/* Corner accent */}
+            {/* Corner ambient glow */}
             <div
-              className="absolute top-0 right-0 w-24 h-24 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"
+              className="absolute top-0 right-0 w-28 h-28 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
               style={{
-                background: `radial-gradient(circle at 100% 0%, ${gradientColors[i].from}10, transparent 70%)`,
+                background: `radial-gradient(circle at 100% 0%, ${gradientColors[i].from}15, transparent 70%)`,
               }}
             />
           </motion.div>
