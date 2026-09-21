@@ -204,7 +204,7 @@ export const experiences: Experience[] = [
   {
     id: "krytil-internship",
     role: "Full Stack Developer Intern",
-    company: "Krytil",
+    company: "Krytil Pvt Ltd",
     duration: "Jan 2026 – Present",
     description: [
       "Led a team of five developers to build a full-stack recruitment platform supporting authentication, job posting, candidate management, and recruiter dashboards.",
@@ -212,6 +212,17 @@ export const experiences: Experience[] = [
       "Implemented secure JWT authentication and role-based authorization for recruiters and job seekers."
     ],
     technologies: ["React.js", "FastAPI", "Python", "MongoDB", "JWT", "REST APIs", "Git"],
+    type: "internship",
+  },
+  {
+    id: "aventiq-internship",
+    role: "Full Stack Developer Intern",
+    company: "Aventiq Innovation Pvt Ltd",
+    duration: "Aug 2026 – Present",
+    description: [
+      "Developed the SmartTrace Platform, an integrated digital solution for the ABIOT-E-SAFE Biomedical Waste Treatment Machine, enabling smart monitoring, traceability, and data management of biomedical waste treatment operations."
+    ],
+    technologies: [],
     type: "internship",
   },
   {

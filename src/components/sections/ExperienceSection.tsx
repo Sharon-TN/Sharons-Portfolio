@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Calendar, Briefcase } from "lucide-react";
+import { Calendar } from "lucide-react";
 import { experiences } from "@/data/portfolio";
 import SectionWrapper from "@/components/ui/SectionWrapper";
 
@@ -20,7 +20,7 @@ export default function ExperienceSection() {
       title="My professional journey"
       subtitle="Internships, freelance work, and technical experience that shaped my skills."
     >
-      <div className="mt-12 space-y-8 max-w-4xl mx-auto">
+      <div className="mt-12 flex flex-col gap-8 max-w-4xl mx-auto w-full">
         {experiences.map((exp, i) => {
           const typeInfo = typeLabels[exp.type] || typeLabels.personal;
           return (
@@ -30,17 +30,19 @@ export default function ExperienceSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
               transition={{ delay: i * 0.1, duration: 0.5 }}
+              className="w-full"
             >
-              {/* Clean Experience Card — No floating timeline dots */}
+              {/* Clean Rectangular Experience Card */}
               <div
-                className="p-6 sm:p-8 rounded-2xl transition-all duration-300 hover:-translate-y-1"
+                className="p-6 sm:p-8 rounded-none transition-all duration-300 hover:-translate-y-1 shadow-sm"
                 style={{
                   background: "var(--color-bg-card)",
                   border: "1px solid var(--color-border)",
+                  borderRadius: "0px",
                 }}
                 onMouseEnter={(e) => {
                   (e.currentTarget as HTMLElement).style.borderColor = `${typeInfo.color}40`;
-                  (e.currentTarget as HTMLElement).style.boxShadow = `0 0 30px ${typeInfo.color}10`;
+                  (e.currentTarget as HTMLElement).style.boxShadow = `0 8px 30px rgba(0,0,0,0.1), 0 0 25px ${typeInfo.color}10`;
                 }}
                 onMouseLeave={(e) => {
                   (e.currentTarget as HTMLElement).style.borderColor = "var(--color-border)";
@@ -79,7 +81,7 @@ export default function ExperienceSection() {
                 </div>
 
                 {/* Bullet Points */}
-                <ul className="space-y-3 mb-6">
+                <ul className="space-y-3 mb-2">
                   {exp.description.map((item, j) => (
                     <li key={j} className="flex items-start gap-3 text-sm text-[var(--color-text-secondary)] leading-relaxed">
                       <span className="w-1.5 h-1.5 rounded-full bg-[var(--color-accent-primary)] mt-2 flex-shrink-0" />
@@ -87,23 +89,6 @@ export default function ExperienceSection() {
                     </li>
                   ))}
                 </ul>
-
-                {/* Technologies */}
-                <div className="flex flex-wrap gap-2 pt-2">
-                  {exp.technologies.map((tech) => (
-                    <span
-                      key={tech}
-                      className="px-3 py-1 rounded-lg text-xs font-mono"
-                      style={{
-                        background: "var(--color-bg-tertiary)",
-                        color: "var(--color-text-secondary)",
-                        border: "1px solid var(--color-border)",
-                      }}
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
               </div>
             </motion.div>
           );
