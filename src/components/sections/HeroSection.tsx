@@ -246,10 +246,11 @@ function BackgroundVideoPlayer({ isMuted, setIsMuted }: { isMuted: boolean; setI
           transform: "translate3d(0, 0, 0)",
           willChange: "transform",
           backfaceVisibility: "hidden",
+          filter: "brightness(1.2) contrast(1.05)",
         }}
       />
-      {/* High-Contrast Gradient Overlay for Legibility */}
-      <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/65 to-black/40 backdrop-blur-[1px]" />
+      {/* Lighter Gradient Overlay to Keep Video Bright and Vibrant */}
+      <div className="absolute inset-0 bg-gradient-to-r from-black/45 via-black/25 to-transparent" />
       
       {/* Sleek Curved Wave Transition into Next Section */}
       <div className="absolute -bottom-1 left-0 right-0 w-full overflow-hidden leading-none z-10 pointer-events-none">
@@ -386,7 +387,6 @@ export default function HeroSection() {
             {[
               { value: "9.1", label: "CGPA (B.E. CSE)" },
               { value: "IIT Mandi", label: "AI Minor Degree" },
-              { value: "Full Stack", label: "Developer Intern (Krytil)" },
             ].map((stat) => (
               <div key={stat.label}>
                 <div className="text-xl font-bold text-white drop-shadow-sm">{stat.value}</div>
