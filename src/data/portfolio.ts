@@ -202,6 +202,17 @@ export interface Experience {
 
 export const experiences: Experience[] = [
   {
+    id: "aventiq-internship",
+    role: "Full Stack Developer Intern",
+    company: "Aventiq Innovations Pvt Ltd",
+    duration: "Aug 2026 – Present",
+    description: [
+      "Developed the SmartTrace Platform, an integrated digital solution for the ABIOT-E-SAFE Biomedical Waste Treatment Machine, enabling smart monitoring, traceability, and data management of biomedical waste treatment operations."
+    ],
+    technologies: [],
+    type: "internship",
+  },
+  {
     id: "krytil-internship",
     role: "Full Stack Developer Intern",
     company: "Krytil Pvt Ltd",
@@ -212,17 +223,6 @@ export const experiences: Experience[] = [
       "Implemented secure JWT authentication and role-based authorization for recruiters and job seekers."
     ],
     technologies: ["React.js", "FastAPI", "Python", "MongoDB", "JWT", "REST APIs", "Git"],
-    type: "internship",
-  },
-  {
-    id: "aventiq-internship",
-    role: "Full Stack Developer Intern",
-    company: "Aventiq Innovation Pvt Ltd",
-    duration: "Aug 2026 – Present",
-    description: [
-      "Developed the SmartTrace Platform, an integrated digital solution for the ABIOT-E-SAFE Biomedical Waste Treatment Machine, enabling smart monitoring, traceability, and data management of biomedical waste treatment operations."
-    ],
-    technologies: [],
     type: "internship",
   },
   {
