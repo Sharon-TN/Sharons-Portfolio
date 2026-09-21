@@ -49,7 +49,6 @@ export const navLinks = [
   { label: "Projects", href: "#projects" },
   { label: "Skills", href: "#skills" },
   { label: "Experience", href: "#experience" },
-  { label: "AI Lab", href: "#ai-lab" },
   { label: "Education", href: "#education" },
   { label: "Contact", href: "#contact" },
 ];
@@ -411,33 +410,6 @@ export const achievements: Achievement[] = [
     description: "Serving student-faculty coordination and leadership since 1st semester.",
     year: "Leadership",
     type: "other",
-  },
-];
-
-export const aiLabProjects = [
-  {
-    id: "ai-1",
-    title: "Day Zero: Water Emergency Forecasting Engine",
-    description: "AI model combining Gemini AI and Monte Carlo risk simulations for urban water emergency planning.",
-    category: "Generative AI",
-    technologies: ["Python", "FastAPI", "Gemini AI", "Monte Carlo"],
-    status: "Completed",
-  },
-  {
-    id: "ai-2",
-    title: "Recruitment Analytics & Skill Matcher",
-    description: "Automated candidate matching and analytics engine built during Krytil internship.",
-    category: "AI Integration",
-    technologies: ["Python", "FastAPI", "MongoDB", "REST APIs"],
-    status: "Completed",
-  },
-  {
-    id: "ai-3",
-    title: "Generative AI Study Jam Experiments",
-    description: "Hands-on generative models, prompt engineering, and Cloud AI deployment workflows.",
-    category: "LLM Applications",
-    technologies: ["Google Cloud", "Generative AI", "Python"],
-    status: "Completed",
   },
 ];
 

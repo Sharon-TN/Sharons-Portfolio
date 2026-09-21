@@ -11,7 +11,6 @@ import CapabilitiesSection from "@/components/sections/CapabilitiesSection";
 import SkillsSection from "@/components/sections/SkillsSection";
 import ProjectsSection from "@/components/sections/ProjectsSection";
 import ExperienceSection from "@/components/sections/ExperienceSection";
-import AILabSection from "@/components/sections/AILabSection";
 import ProcessSection from "@/components/sections/ProcessSection";
 import EducationSection from "@/components/sections/EducationSection";
 import ResumeSection from "@/components/sections/ResumeSection";
@@ -41,7 +40,6 @@ export default function PortfolioClient() {
         <SkillsSection />
         <ProcessSection />
         <ExperienceSection />
-        <AILabSection />
         <EducationSection />
         <ResumeSection />
         <ContactSection />

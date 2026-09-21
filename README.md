@@ -34,7 +34,6 @@ Simply edit `src/data/portfolio.ts` to update:
 - **Skills & Tech Universe**: Frontend, Backend, Databases, AI/ML tools, DevOps
 - **Projects**: Project title, tagline, problem, solution, tech stack, architecture, live demo & GitHub links
 - **Experience**: Internships, freelance work, duration, bullet points
-- **AI Lab Projects**: Experimental AI builds, statuses (In Progress / Completed)
 - **Education & Certifications**: Degrees, courses, credentials, achievements
 
 ---
@@ -51,7 +50,6 @@ Simply edit `src/data/portfolio.ts` to update:
   - `SkillsSection`: Dynamic category selector, animated skill bars, full technology tag cloud
   - `ProcessSection`: 8-step engineering pipeline from concept to deployment
   - `ExperienceSection`: Vertical timeline with color-coded experience badges
-  - `AILabSection`: Neural network visualization & AI experiment cards
   - `EducationSection`: Academic timeline, certifications with verification links, achievements
   - `ResumeSection`: Quick action buttons to view or download resume
   - `ContactSection`: Validated contact form, interactive social cards, live availability indicator
