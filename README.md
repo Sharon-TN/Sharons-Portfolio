@@ -4,6 +4,9 @@ An extraordinary, modern, and interactive personal portfolio website designed an
 
 Built with **Next.js 16 (App Router)**, **TypeScript**, **Tailwind CSS v4**, **Framer Motion**, and **Three.js / HTML5 Canvas**.
 
+## 🌐 Live Production URL
+Visit the live portfolio at: **[https://sharon-tn-portfolio.vercel.app](https://sharon-tn-portfolio.vercel.app)**
+
 ---
 
 ## 🚀 Quick Start (Running Manually)

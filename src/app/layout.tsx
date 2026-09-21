@@ -15,6 +15,7 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://sharon-tn-portfolio.vercel.app"),
   title: {
     default: "Sharon T N — Full Stack Developer & Aspiring AI Engineer",
     template: "%s | Sharon T N",
