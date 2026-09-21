@@ -13,7 +13,8 @@ export const personalInfo = {
   phone: "+91 9019740083",
   github: "https://github.com/Sharon-TN",
   linkedin: "https://linkedin.com/in/sharon-t-n",
-  resumeUrl: "https://drive.google.com/file/d/1aMVrGoMgpGrBvtL2b_tttCmzSGa2DX74/view?usp=sharing",
+  resumeUrl: "https://drive.google.com/file/d/1_kM_rSxDs3XRLYW_DEwlKwfIaV3Grs65/view?usp=sharing",
+  resumeDownloadUrl: "/T_N_Sharon_Resume.pdf",
   profileImage: "/profile.jpg",
   university: "Atria Institute of Technology & IIT Mandi",
   degree: "B.E. Computer Science Engineering (CGPA: 9.1)",
@@ -29,7 +30,7 @@ export const personalInfo = {
     { label: "Foundations", description: "96.4% in ICSE & 95.2% in PUC (PCMC)", icon: "code" },
     { label: "Engineering", description: "B.E. in CSE at Atria Institute of Technology (9.1 CGPA)", icon: "layers" },
     { label: "AI Specialization", description: "Minor Degree in Artificial Intelligence from IIT Mandi", icon: "brain" },
-    { label: "Full Stack Lead", description: "Internships leading developer teams at Krytil & Coincent", icon: "rocket" },
+    { label: "Full Stack Lead", description: "Internships at Aventiq Innovations, Krytil & Coincent", icon: "rocket" },
     { label: "Cloud & AI Labs", description: "Google Cloud & Generative AI Study Jam rewards recipient", icon: "sparkles" },
   ],
 };
@@ -216,7 +217,7 @@ export const experiences: Experience[] = [
     id: "krytil-internship",
     role: "Full Stack Developer Intern",
     company: "Krytil Pvt Ltd",
-    duration: "Jan 2026 – Present",
+    duration: "Jan 2026 – June 2026",
     description: [
       "Led a team of five developers to build a full-stack recruitment platform supporting authentication, job posting, candidate management, and recruiter dashboards.",
       "Architected backend APIs using FastAPI and Python with MongoDB database integration.",
