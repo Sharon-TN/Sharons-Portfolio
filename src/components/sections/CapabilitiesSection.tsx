@@ -1,522 +1,463 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
-import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import {
+  ChevronLeft,
+  ChevronRight,
   Layers,
   Brain,
   Cloud,
   Palette,
-  Terminal,
-  Zap,
   ArrowRight,
-  CheckCircle2,
   Sparkles,
+  Zap,
+  Server,
+  ShieldCheck,
+  Cpu,
+  Globe,
 } from "lucide-react";
 import SectionWrapper from "@/components/ui/SectionWrapper";
 
-interface CapabilityItem {
+interface CapabilitySlide {
   id: string;
-  code: string;
+  number: string;
+  category: string;
   title: string;
   tagline: string;
   description: string;
   icon: React.ReactNode;
-  accentColor: string;
-  secondaryColor: string;
-  metrics: { label: string; value: string }[];
+  accent: string;
+  secondaryAccent: string;
+  bgGradient: string;
+  highlights: { title: string; subtitle: string; icon: React.ReactNode }[];
   technologies: string[];
-  features: string[];
-  systemType: string;
+  projectLinkText: string;
 }
 
-const capabilityData: CapabilityItem[] = [
+const capabilities: CapabilitySlide[] = [
   {
     id: "fullstack",
-    code: "SYS-01",
+    number: "01",
+    category: "SYSTEM ARCHITECTURE",
     title: "Full Stack Applications",
-    tagline: "End-to-end scalable web architectures & high-throughput APIs",
+    tagline: "Scalable Web Platforms, Async Services & Enterprise APIs",
     description:
-      "Architecting enterprise-grade platforms uniting responsive client interfaces with resilient microservices, role-based JWT auth, and optimized database pipelines.",
-    icon: <Layers size={22} />,
-    accentColor: "#6366f1",
-    secondaryColor: "#06b6d4",
-    systemType: "Distributed REST & Async Backend",
-    metrics: [
-      { label: "API Latency", value: "< 45ms" },
-      { label: "Auth Flow", value: "JWT + RBAC" },
-      { label: "Database", value: "MongoDB Atlas" },
+      "Engineering robust, high-availability software from clean relational/document data models to fluid user interfaces. Experienced in designing low-latency RESTful APIs, secure authentication systems, and performant server architectures.",
+    icon: <Layers size={32} />,
+    accent: "#6366f1",
+    secondaryAccent: "#06b6d4",
+    bgGradient: "from-indigo-600/20 via-cyan-600/10 to-transparent",
+    highlights: [
+      {
+        title: "FastAPI & Node.js Backends",
+        subtitle: "Async request processing & clean Swagger documentation",
+        icon: <Server size={18} />,
+      },
+      {
+        title: "Enterprise Auth & RBAC",
+        subtitle: "Secure JWT workflows & role-based route guards",
+        icon: <ShieldCheck size={18} />,
+      },
+      {
+        title: "Optimized Database Schemas",
+        subtitle: "MongoDB & SQL database indexing for speed",
+        icon: <Zap size={18} />,
+      },
     ],
-    technologies: ["React.js", "FastAPI", "Python", "Node.js", "Express", "MongoDB"],
-    features: [
-      "RESTful endpoint design & Swagger documentation",
-      "Async request processing & connection pooling",
-      "Role-based access control & token refresh cycles",
-      "Scalable schema design with compound indexing",
-    ],
+    technologies: ["React.js", "FastAPI", "Python", "Node.js", "Express.js", "MongoDB", "REST APIs", "JWT"],
+    projectLinkText: "Featured in Krytil Jobs & E-Locate",
   },
   {
     id: "ai",
-    code: "SYS-02",
+    number: "02",
+    category: "INTELLIGENT SYSTEMS",
     title: "Artificial Intelligence & ML",
-    tagline: "Generative AI integrations, LLM workflows & risk simulations",
+    tagline: "Generative AI Integrations, Neural Architectures & Stochastic Models",
     description:
-      "Engineering predictive models and intelligent agentic workflows using Gemini AI, Monte Carlo forecasting algorithms, and custom neural pipeline orchestrations.",
-    icon: <Brain size={22} />,
-    accentColor: "#8b5cf6",
-    secondaryColor: "#ec4899",
-    systemType: "Generative AI & Stochastic Modeling",
-    metrics: [
-      { label: "Inference", value: "Streaming" },
-      { label: "Engine", value: "Gemini + NumPy" },
-      { label: "Simulation", value: "Monte Carlo" },
+      "Building practical AI solutions that merge LLM capabilities with predictive modeling. Specialized in prompt design, multimodal AI reasoning with Google Gemini, and probabilistic Monte Carlo simulations for crisis forecasting.",
+    icon: <Brain size={32} />,
+    accent: "#a855f7",
+    secondaryAccent: "#ec4899",
+    bgGradient: "from-purple-600/20 via-pink-600/10 to-transparent",
+    highlights: [
+      {
+        title: "Generative AI & LLM Systems",
+        subtitle: "Contextual prompt chains & multi-turn reasoning pipelines",
+        icon: <Sparkles size={18} />,
+      },
+      {
+        title: "Monte Carlo Risk Engines",
+        subtitle: "Probabilistic forecasting & scenario modeling",
+        icon: <Cpu size={18} />,
+      },
+      {
+        title: "IIT Mandi AI Specialization",
+        subtitle: "Deep learning foundations, neural networks & predictive math",
+        icon: <Zap size={18} />,
+      },
     ],
-    technologies: ["Python", "Gemini AI", "Machine Learning", "Deep Learning", "NumPy", "FastAPI"],
-    features: [
-      "Prompt engineering & multimodal reasoning workflows",
-      "Monte Carlo water crisis & resource risk modeling",
-      "Live predictive analytics integrated with external APIs",
-      "IIT Mandi AI Specialization foundations",
-    ],
+    technologies: ["Python", "Gemini AI", "Machine Learning", "Deep Learning", "NumPy", "Monte Carlo", "FastAPI"],
+    projectLinkText: "Featured in Day Zero Water Emergency Planner",
   },
   {
     id: "cloud",
-    code: "SYS-03",
+    number: "03",
+    category: "CLOUD & DEVOPS",
     title: "Cloud Infrastructure & DevOps",
-    tagline: "Automated CI/CD, containerization & edge deployment workflows",
+    tagline: "Continuous Delivery, Edge Hosting & Resilient Cloud Deployments",
     description:
-      "Deploying high-availability digital products on Google Cloud Platform, AWS, and Vercel edge networks with automated git workflows and zero-downtime rollouts.",
-    icon: <Cloud size={22} />,
-    accentColor: "#10b981",
-    secondaryColor: "#14b8a6",
-    systemType: "Edge Cloud & Continuous Deployment",
-    metrics: [
-      { label: "Uptime", value: "99.98%" },
-      { label: "Deploy Time", value: "< 90s" },
-      { label: "Cloud Jam", value: "Google Winner" },
+      "Bridging application development with automated cloud pipelines. Configuring automated git push-to-production workflows on Vercel and leveraging Google Cloud Platform for reliable, globally distributed digital products.",
+    icon: <Cloud size={32} />,
+    accent: "#10b981",
+    secondaryAccent: "#14b8a6",
+    bgGradient: "from-emerald-600/20 via-teal-600/10 to-transparent",
+    highlights: [
+      {
+        title: "Automated Git CI/CD",
+        subtitle: "Push-to-deploy pipelines with zero downtime",
+        icon: <Zap size={18} />,
+      },
+      {
+        title: "Google Cloud Winner",
+        subtitle: "Official rewards winner for Google Cloud Study Jams",
+        icon: <Globe size={18} />,
+      },
+      {
+        title: "Edge Optimization",
+        subtitle: "Global CDN caching, code splitting & bundle minimization",
+        icon: <Server size={18} />,
+      },
     ],
-    technologies: ["Google Cloud", "AWS", "Git", "GitHub Actions", "Vercel", "Docker"],
-    features: [
-      "Automated git push-to-production Vercel deployments",
-      "Google Cloud Platform & Study Jam certified workflows",
-      "Environment variable isolation & secrets management",
-      "Global CDN caching & asset optimization",
-    ],
+    technologies: ["Google Cloud", "AWS", "Git & GitHub", "Vercel Edge", "Docker", "CI/CD Pipelines"],
+    projectLinkText: "Deployed across Vercel & GCP infrastructure",
   },
   {
     id: "frontend",
-    code: "SYS-04",
+    number: "04",
+    category: "VISUAL ENGINEERING",
     title: "Interactive Web & 3D Visuals",
-    tagline: "Modern kinetic animations, 3D Canvas visualizers & sleek UX",
+    tagline: "60 FPS WebGL, Kinetic Animations & Modern Glassmorphism",
     description:
-      "Crafting memorable digital environments with WebGL, Three.js shaders, kinetic molecular chemistry visualizers, and physics-driven micro-interactions.",
-    icon: <Palette size={22} />,
-    accentColor: "#f59e0b",
-    secondaryColor: "#f97316",
-    systemType: "60 FPS WebGL & Kinetic UI",
-    metrics: [
-      { label: "Frame Rate", value: "60 FPS" },
-      { label: "Shaders", value: "Hardware Accel" },
-      { label: "Design", value: "Cyber Glass" },
+      "Crafting high-impact user interfaces that command attention. Specializing in HTML5 Canvas 2D/3D orbital physics, hardware-accelerated animations, and responsive cyberpunk-inspired glass aesthetics.",
+    icon: <Palette size={32} />,
+    accent: "#f59e0b",
+    secondaryAccent: "#f97316",
+    bgGradient: "from-amber-600/20 via-orange-600/10 to-transparent",
+    highlights: [
+      {
+        title: "Three.js & Canvas 2D/3D",
+        subtitle: "Custom particle simulations & kinetic molecular rotators",
+        icon: <Sparkles size={18} />,
+      },
+      {
+        title: "Micro-Interaction Motion",
+        subtitle: "Physics-based spring curves & responsive hover states",
+        icon: <Zap size={18} />,
+      },
+      {
+        title: "Design System Architecture",
+        subtitle: "Tailwind CSS design tokens & dark/light theme persistence",
+        icon: <Layers size={18} />,
+      },
     ],
-    technologies: ["Three.js", "HTML5 Canvas", "Framer Motion", "Tailwind CSS", "React.js"],
-    features: [
-      "Custom 2D/3D orbital physics & particle fields",
-      "Glassmorphic cybernetic layouts with backdrop blur",
-      "Accessible motion curves with reduced-motion fallbacks",
-      "Fluid responsive typography and dynamic color tokens",
-    ],
+    technologies: ["Three.js", "HTML5 Canvas", "Framer Motion", "Tailwind CSS", "React.js", "TypeScript"],
+    projectLinkText: "Featured across this portfolio & Day Zero 3D UI",
   },
 ];
 
-// Interactive Micro-Component 1: Full-Stack Packet Flow
-function FullstackVisualizer() {
-  return (
-    <div className="w-full py-2.5 px-3 rounded-xl bg-black/40 border border-indigo-500/20 font-mono text-[11px] overflow-hidden">
-      <div className="flex items-center justify-between text-indigo-300 font-semibold mb-2">
-        <span className="flex items-center gap-1.5">
-          <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-          PIPELINE STREAM
-        </span>
-        <span className="text-white/50 text-[10px]">AVG 38ms</span>
-      </div>
-
-      <div className="relative flex items-center justify-between gap-1 sm:gap-2 my-2">
-        <div className="px-2 py-1.5 rounded-lg bg-indigo-950/70 border border-indigo-500/40 text-indigo-200 text-center flex-1">
-          <div className="text-[10px] text-indigo-400">CLIENT</div>
-          <div className="font-bold text-[11px]">React SPA</div>
-        </div>
-
-        {/* Animated Flow Line */}
-        <div className="relative flex-1 h-0.5 bg-indigo-500/30 overflow-hidden">
-          <motion.div
-            className="absolute top-0 bottom-0 w-8 bg-gradient-to-r from-transparent via-cyan-400 to-transparent"
-            animate={{ x: ["-100%", "200%"] }}
-            transition={{ duration: 1.6, repeat: Infinity, ease: "linear" }}
-          />
-        </div>
-
-        <div className="px-2 py-1.5 rounded-lg bg-cyan-950/70 border border-cyan-500/40 text-cyan-200 text-center flex-1">
-          <div className="text-[10px] text-cyan-400">SERVER</div>
-          <div className="font-bold text-[11px]">FastAPI</div>
-        </div>
-
-        {/* Animated Flow Line */}
-        <div className="relative flex-1 h-0.5 bg-cyan-500/30 overflow-hidden">
-          <motion.div
-            className="absolute top-0 bottom-0 w-8 bg-gradient-to-r from-transparent via-indigo-400 to-transparent"
-            animate={{ x: ["-100%", "200%"] }}
-            transition={{ duration: 1.6, repeat: Infinity, ease: "linear", delay: 0.8 }}
-          />
-        </div>
-
-        <div className="px-2 py-1.5 rounded-lg bg-emerald-950/70 border border-emerald-500/40 text-emerald-200 text-center flex-1">
-          <div className="text-[10px] text-emerald-400">CLUSTER</div>
-          <div className="font-bold text-[11px]">MongoDB</div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-// Interactive Micro-Component 2: Neural Synapse Matrix
-function AINeuralVisualizer() {
-  return (
-    <div className="w-full py-2.5 px-3 rounded-xl bg-black/40 border border-purple-500/20 font-mono text-[11px] overflow-hidden">
-      <div className="flex items-center justify-between text-purple-300 font-semibold mb-1.5">
-        <span className="flex items-center gap-1.5">
-          <Sparkles size={12} className="text-pink-400 animate-spin" style={{ animationDuration: "6s" }} />
-          INFERENCE ENGINE
-        </span>
-        <span className="text-emerald-400 text-[10px]">TENSOR CONVERGED</span>
-      </div>
-
-      <div className="space-y-1 my-1">
-        <div className="flex justify-between items-center text-[10px] text-white/70">
-          <span>PROMPT</span>
-          <span className="text-purple-300 truncate max-w-[170px]">&quot;Water risk forecast&quot;</span>
-        </div>
-        <div className="w-full h-1.5 bg-purple-950 rounded-full overflow-hidden border border-purple-500/30">
-          <motion.div
-            className="h-full bg-gradient-to-r from-purple-500 via-pink-500 to-cyan-400"
-            animate={{ width: ["15%", "95%", "85%"] }}
-            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-          />
-        </div>
-        <div className="flex justify-between items-center text-[10px] text-white/50 pt-0.5">
-          <span>Stochastic Engine: Monte Carlo</span>
-          <span className="text-pink-400">99.4% conf</span>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-// Interactive Micro-Component 3: Cloud DevOps Pipeline Terminal
-function CloudTerminalVisualizer() {
-  return (
-    <div className="w-full py-2.5 px-3 rounded-xl bg-black/40 border border-emerald-500/20 font-mono text-[11px] overflow-hidden">
-      <div className="flex items-center justify-between text-emerald-300 font-semibold mb-1.5">
-        <span className="flex items-center gap-1.5">
-          <Terminal size={12} className="text-teal-400" />
-          CI/CD RUNNER
-        </span>
-        <span className="text-emerald-400 text-[10px]">✓ PASSING</span>
-      </div>
-
-      <div className="bg-black/60 rounded-lg p-2 border border-emerald-500/20 space-y-1 text-[10px] text-white/80">
-        <div className="flex items-center gap-1.5 text-emerald-300">
-          <CheckCircle2 size={11} className="text-emerald-400 flex-shrink-0" />
-          <span>git push origin main → auto build</span>
-        </div>
-        <div className="flex items-center gap-1.5 text-cyan-300">
-          <CheckCircle2 size={11} className="text-cyan-400 flex-shrink-0" />
-          <span>Vercel edge bundle optimized (200 OK)</span>
-        </div>
-        <div className="flex items-center gap-1.5 text-teal-300">
-          <CheckCircle2 size={11} className="text-teal-400 flex-shrink-0" />
-          <span>Google Cloud study jam verified</span>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-// Interactive Micro-Component 4: Interactive Canvas Orb
-function InteractiveCanvasVisualizer() {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-
-    let animId: number;
-    let t = 0;
-    const w = 260;
-    const h = 60;
-    canvas.width = w;
-    canvas.height = h;
-
-    const render = () => {
-      t += 0.03;
-      ctx.clearRect(0, 0, w, h);
-
-      // Draw kinetic wave lines
-      ctx.beginPath();
-      for (let x = 0; x < w; x += 3) {
-        const y = h / 2 + Math.sin(x * 0.05 + t) * 12 + Math.cos(x * 0.02 - t) * 6;
-        if (x === 0) ctx.moveTo(x, y);
-        else ctx.lineTo(x, y);
-      }
-      ctx.strokeStyle = "rgba(245, 158, 11, 0.7)";
-      ctx.lineWidth = 2;
-      ctx.stroke();
-
-      // Particle dots
-      for (let i = 0; i < 5; i++) {
-        const px = ((t * 40 + i * 55) % (w + 20)) - 10;
-        const py = h / 2 + Math.sin(px * 0.05 + t) * 12 + Math.cos(px * 0.02 - t) * 6;
-        ctx.fillStyle = i % 2 === 0 ? "#f97316" : "#fbbf24";
-        ctx.beginPath();
-        ctx.arc(px, py, 3, 0, Math.PI * 2);
-        ctx.fill();
-      }
-
-      animId = requestAnimationFrame(render);
-    };
-
-    render();
-    return () => cancelAnimationFrame(animId);
-  }, []);
-
-  return (
-    <div className="w-full py-2 px-3 rounded-xl bg-black/40 border border-amber-500/20 font-mono text-[11px] overflow-hidden">
-      <div className="flex items-center justify-between text-amber-300 font-semibold mb-1">
-        <span className="flex items-center gap-1.5">
-          <Zap size={12} className="text-amber-400" />
-          KINETIC RENDER
-        </span>
-        <span className="text-amber-400 text-[10px]">60 FPS WEBGL</span>
-      </div>
-      <div className="flex justify-center items-center h-[52px]">
-        <canvas ref={canvasRef} className="w-full h-full" />
-      </div>
-    </div>
-  );
-}
-
 export default function CapabilitiesSection() {
-  const [activeTab, setActiveTab] = useState<string>("fullstack");
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [direction, setDirection] = useState(0);
 
-  const visualizers: Record<string, React.ReactNode> = {
-    fullstack: <FullstackVisualizer />,
-    ai: <AINeuralVisualizer />,
-    cloud: <CloudTerminalVisualizer />,
-    frontend: <InteractiveCanvasVisualizer />,
+  const currentCap = capabilities[currentIndex];
+
+  const handleNext = () => {
+    setDirection(1);
+    setCurrentIndex((prev) => (prev + 1) % capabilities.length);
+  };
+
+  const handlePrev = () => {
+    setDirection(-1);
+    setCurrentIndex((prev) => (prev - 1 + capabilities.length) % capabilities.length);
+  };
+
+  const handleSelect = (idx: number) => {
+    setDirection(idx > currentIndex ? 1 : -1);
+    setCurrentIndex(idx);
+  };
+
+  // Keyboard navigation
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "ArrowRight") handleNext();
+      if (e.key === "ArrowLeft") handlePrev();
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [currentIndex]);
+
+  const slideVariants = {
+    enter: (dir: number) => ({
+      x: dir > 0 ? 120 : -120,
+      opacity: 0,
+      scale: 0.95,
+    }),
+    center: {
+      x: 0,
+      opacity: 1,
+      scale: 1,
+      transition: {
+        duration: 0.45,
+        ease: [0.16, 1, 0.3, 1],
+      },
+    },
+    exit: (dir: number) => ({
+      x: dir > 0 ? -120 : 120,
+      opacity: 0,
+      scale: 0.95,
+      transition: {
+        duration: 0.35,
+        ease: [0.16, 1, 0.3, 1],
+      },
+    }),
   };
 
   return (
     <SectionWrapper
       id="capabilities"
       label="Core Capabilities"
-      title="Engineering Systems & Architecture"
-      subtitle="A multi-disciplinary stack engineered for scalable products, real-time AI solutions, and fluid user experiences."
+      title="Engineering Specialties"
+      subtitle="Swipe or browse through my primary technical domains — architected with modern tooling and real-world execution."
       centered
     >
-      {/* Interactive Domain Filter Pills */}
-      <div className="flex flex-wrap justify-center gap-2 mb-10 mt-2">
-        {capabilityData.map((item) => {
-          const isActive = activeTab === item.id;
-          return (
-            <button
-              key={item.id}
-              onClick={() => setActiveTab(item.id)}
-              className="flex items-center gap-2 px-4 py-2 rounded-full text-xs font-mono font-semibold transition-all duration-300 cursor-pointer"
-              style={{
-                background: isActive
-                  ? `linear-gradient(135deg, ${item.accentColor}25, ${item.secondaryColor}15)`
-                  : "var(--color-bg-card)",
-                border: isActive
-                  ? `1.5px solid ${item.accentColor}`
-                  : "1px solid var(--color-border)",
-                color: isActive ? "#ffffff" : "var(--color-text-secondary)",
-                boxShadow: isActive ? `0 0 20px ${item.accentColor}30` : "none",
-              }}
-            >
-              <span
-                className="w-2 h-2 rounded-full"
+      <div className="w-full max-w-5xl mx-auto flex flex-col items-center mt-2 select-none">
+        {/* Navigation Selector Bar (Tabs) */}
+        <div className="flex flex-wrap justify-center items-center gap-2 sm:gap-3 mb-8 w-full">
+          {capabilities.map((cap, idx) => {
+            const isActive = idx === currentIndex;
+            return (
+              <button
+                key={cap.id}
+                onClick={() => handleSelect(idx)}
+                className="relative flex items-center gap-2 px-3 sm:px-5 py-2.5 rounded-full text-xs sm:text-sm font-mono font-semibold transition-all duration-300 cursor-pointer"
                 style={{
-                  background: item.accentColor,
-                  boxShadow: isActive ? `0 0 8px ${item.accentColor}` : "none",
+                  background: isActive ? `${cap.accent}20` : "var(--color-bg-card)",
+                  border: isActive ? `1.5px solid ${cap.accent}` : "1px solid var(--color-border)",
+                  color: isActive ? "#ffffff" : "var(--color-text-secondary)",
+                  boxShadow: isActive ? `0 0 20px ${cap.accent}30` : "none",
                 }}
-              />
-              {item.title}
-            </button>
-          );
-        })}
-      </div>
+              >
+                <span
+                  className="w-2 h-2 rounded-full"
+                  style={{
+                    background: cap.accent,
+                    boxShadow: isActive ? `0 0 8px ${cap.accent}` : "none",
+                  }}
+                />
+                <span className="opacity-60">{cap.number}</span>
+                <span>{cap.title}</span>
+              </button>
+            );
+          })}
+        </div>
 
-      {/* Extraordinary 4-Module Bento Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-6xl mx-auto">
-        {capabilityData.map((item, idx) => {
-          const isSelected = activeTab === item.id;
-
-          return (
+        {/* 3D Visual Carousel Stage */}
+        <div className="relative w-full min-h-[560px] sm:min-h-[500px] flex items-center justify-center">
+          <AnimatePresence mode="wait" custom={direction}>
             <motion.div
-              key={item.id}
-              layout
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: idx * 0.1, duration: 0.5 }}
-              onClick={() => setActiveTab(item.id)}
-              className="group relative rounded-3xl p-6 sm:p-8 flex flex-col justify-between transition-all duration-500 cursor-pointer overflow-hidden"
+              key={currentCap.id}
+              custom={direction}
+              variants={slideVariants}
+              initial="enter"
+              animate="center"
+              exit="exit"
+              className="w-full relative rounded-3xl p-6 sm:p-10 lg:p-12 overflow-hidden shadow-2xl"
               style={{
                 background: "var(--color-bg-card)",
-                border: isSelected
-                  ? `2px solid ${item.accentColor}`
-                  : "1px solid var(--color-border)",
-                boxShadow: isSelected
-                  ? `0 12px 36px rgba(0, 0, 0, 0.25), 0 0 30px ${item.accentColor}20`
-                  : "var(--shadow-sm)",
-              }}
-              onMouseEnter={(e) => {
-                if (!isSelected) {
-                  (e.currentTarget as HTMLElement).style.borderColor = `${item.accentColor}60`;
-                  (e.currentTarget as HTMLElement).style.boxShadow = `0 8px 30px rgba(0,0,0,0.1), 0 0 25px ${item.accentColor}15`;
-                }
-              }}
-              onMouseLeave={(e) => {
-                if (!isSelected) {
-                  (e.currentTarget as HTMLElement).style.borderColor = "var(--color-border)";
-                  (e.currentTarget as HTMLElement).style.boxShadow = "var(--shadow-sm)";
-                }
+                border: `1.5px solid ${currentCap.accent}40`,
+                boxShadow: `0 20px 50px rgba(0, 0, 0, 0.2), 0 0 40px ${currentCap.accent}15`,
               }}
             >
-              {/* Top Accent Gradient Bar */}
+              {/* Vibrant Atmospheric Background Mesh */}
               <div
-                className="absolute top-0 left-0 right-0 h-[3px] transition-opacity duration-300"
+                className={`absolute inset-0 bg-gradient-to-br ${currentCap.bgGradient} pointer-events-none opacity-40`}
+              />
+
+              {/* Top Accent Gradient Line */}
+              <div
+                className="absolute top-0 left-0 right-0 h-1"
                 style={{
-                  background: `linear-gradient(90deg, ${item.accentColor}, ${item.secondaryColor})`,
-                  opacity: isSelected ? 1 : 0.4,
+                  background: `linear-gradient(90deg, ${currentCap.accent}, ${currentCap.secondaryAccent})`,
                 }}
               />
 
-              {/* Ambient Radial Hover Glow */}
+              {/* Big Watermark Number */}
               <div
-                className="absolute -top-20 -right-20 w-56 h-56 rounded-full pointer-events-none transition-opacity duration-500"
-                style={{
-                  background: `radial-gradient(circle, ${item.accentColor}25 0%, transparent 70%)`,
-                  opacity: isSelected ? 0.8 : 0.2,
-                }}
-              />
-
-              <div>
-                {/* Header Row: System Code + Icon Badge + System Type */}
-                <div className="flex items-center justify-between gap-3 mb-5">
-                  <div className="flex items-center gap-3">
-                    <div
-                      className="w-12 h-12 rounded-2xl flex items-center justify-center transition-transform duration-300 group-hover:scale-110 shadow-lg"
-                      style={{
-                        background: `linear-gradient(135deg, ${item.accentColor}25, ${item.secondaryColor}15)`,
-                        border: `1.5px solid ${item.accentColor}40`,
-                        color: item.accentColor,
-                        boxShadow: `0 0 16px ${item.accentColor}20`,
-                      }}
-                    >
-                      {item.icon}
-                    </div>
-                    <div>
-                      <span className="text-[11px] font-mono tracking-widest uppercase font-bold text-[var(--color-text-muted)] block">
-                        {item.code}
-                      </span>
-                      <span
-                        className="text-xs font-semibold px-2 py-0.5 rounded-full inline-block mt-0.5"
-                        style={{
-                          background: `${item.accentColor}15`,
-                          color: item.accentColor,
-                          border: `1px solid ${item.accentColor}30`,
-                        }}
-                      >
-                        {item.systemType}
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* Active Beacon */}
-                  <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/5 border border-white/10 text-[11px] font-mono text-white/80">
-                    <span
-                      className="w-2 h-2 rounded-full animate-pulse"
-                      style={{ background: item.accentColor }}
-                    />
-                    ONLINE
-                  </div>
-                </div>
-
-                {/* Title & Description */}
-                <h3 className="text-xl font-extrabold text-[var(--color-text-primary)] mb-2 group-hover:text-[var(--color-accent-primary)] transition-colors">
-                  {item.title}
-                </h3>
-                <p className="text-xs font-medium text-[var(--color-accent-primary)] mb-3">
-                  {item.tagline}
-                </p>
-                <p className="text-sm text-[var(--color-text-secondary)] leading-relaxed mb-6">
-                  {item.description}
-                </p>
-
-                {/* Extraordinary Micro-Visualizer Widget */}
-                <div className="mb-6">{visualizers[item.id]}</div>
-
-                {/* Key Architecture Features */}
-                <div className="space-y-2 mb-6">
-                  <div className="text-[11px] font-mono uppercase font-bold text-[var(--color-text-muted)] tracking-wider">
-                    Core Architectural Highlights
-                  </div>
-                  {item.features.map((feature, fIdx) => (
-                    <div key={fIdx} className="flex items-start gap-2 text-xs text-[var(--color-text-secondary)]">
-                      <ArrowRight size={13} className="text-[var(--color-accent-primary)] mt-0.5 flex-shrink-0" />
-                      <span>{feature}</span>
-                    </div>
-                  ))}
-                </div>
+                className="absolute -bottom-6 -right-6 text-8xl sm:text-9xl font-black font-mono opacity-5 pointer-events-none select-none"
+                style={{ color: currentCap.accent }}
+              >
+                {currentCap.number}
               </div>
 
-              {/* Bottom Row: Metrics & Tech Cloud */}
-              <div className="pt-4 border-t border-[var(--color-border)]">
-                {/* Real-world Performance Metrics */}
-                <div className="grid grid-cols-3 gap-2 py-2 px-3 rounded-xl bg-[var(--color-bg-tertiary)] border border-[var(--color-border)] mb-4">
-                  {item.metrics.map((metric) => (
-                    <div key={metric.label} className="text-center">
-                      <div className="text-[10px] text-[var(--color-text-muted)] font-mono">{metric.label}</div>
-                      <div className="text-xs font-extrabold font-mono text-[var(--color-text-primary)] mt-0.5">
-                        {metric.value}
+              <div className="relative z-10 flex flex-col justify-between h-full">
+                {/* Header: Category Badge + Icon */}
+                <div className="flex items-center justify-between gap-4 mb-6">
+                  <div className="flex items-center gap-3">
+                    <div
+                      className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl flex items-center justify-center shadow-lg"
+                      style={{
+                        background: `linear-gradient(135deg, ${currentCap.accent}30, ${currentCap.secondaryAccent}15)`,
+                        border: `2px solid ${currentCap.accent}50`,
+                        color: currentCap.accent,
+                        boxShadow: `0 0 25px ${currentCap.accent}30`,
+                      }}
+                    >
+                      {currentCap.icon}
+                    </div>
+
+                    <div>
+                      <span className="text-xs font-mono font-bold tracking-widest uppercase text-[var(--color-text-muted)] block">
+                        {currentCap.category}
+                      </span>
+                      <span
+                        className="text-xs sm:text-sm font-semibold px-2.5 py-0.5 rounded-full inline-block mt-1"
+                        style={{
+                          background: `${currentCap.accent}15`,
+                          color: currentCap.accent,
+                          border: `1px solid ${currentCap.accent}30`,
+                        }}
+                      >
+                        Specialty {currentCap.number} of 04
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Desktop Quick Nav Arrows */}
+                  <div className="hidden sm:flex items-center gap-2">
+                    <button
+                      onClick={handlePrev}
+                      className="w-10 h-10 rounded-full flex items-center justify-center bg-white/5 hover:bg-white/15 border border-white/10 text-white transition-colors cursor-pointer"
+                      aria-label="Previous Capability"
+                    >
+                      <ChevronLeft size={20} />
+                    </button>
+                    <button
+                      onClick={handleNext}
+                      className="w-10 h-10 rounded-full flex items-center justify-center bg-white/5 hover:bg-white/15 border border-white/10 text-white transition-colors cursor-pointer"
+                      aria-label="Next Capability"
+                    >
+                      <ChevronRight size={20} />
+                    </button>
+                  </div>
+                </div>
+
+                {/* Bold Display Title & Subheading */}
+                <div className="mb-6">
+                  <h3 className="text-2xl sm:text-4xl lg:text-5xl font-black text-[var(--color-text-primary)] tracking-tight mb-2">
+                    {currentCap.title}
+                  </h3>
+                  <p className="text-sm sm:text-base font-semibold text-[var(--color-accent-primary)] mb-4">
+                    {currentCap.tagline}
+                  </p>
+                  <p className="text-sm sm:text-base text-[var(--color-text-secondary)] leading-relaxed max-w-3xl">
+                    {currentCap.description}
+                  </p>
+                </div>
+
+                {/* 3 Pillars / High-Impact Highlights Grid */}
+                <div className="grid sm:grid-cols-3 gap-3.5 mb-6">
+                  {currentCap.highlights.map((item, hIdx) => (
+                    <div
+                      key={hIdx}
+                      className="p-3.5 rounded-2xl border transition-all duration-300"
+                      style={{
+                        background: "rgba(0, 0, 0, 0.15)",
+                        borderColor: "var(--color-border)",
+                      }}
+                    >
+                      <div className="flex items-center gap-2.5 mb-1.5" style={{ color: currentCap.accent }}>
+                        {item.icon}
+                        <h4 className="text-xs sm:text-sm font-bold text-[var(--color-text-primary)]">
+                          {item.title}
+                        </h4>
                       </div>
+                      <p className="text-xs text-[var(--color-text-muted)] leading-relaxed">
+                        {item.subtitle}
+                      </p>
                     </div>
                   ))}
                 </div>
 
-                {/* Technology Badges */}
-                <div className="flex flex-wrap gap-1.5">
-                  {item.technologies.map((tech) => (
-                    <span
-                      key={tech}
-                      className="px-2.5 py-1 text-xs font-mono font-medium rounded-lg transition-colors"
-                      style={{
-                        background: `${item.accentColor}10`,
-                        border: `1px solid ${item.accentColor}25`,
-                        color: item.accentColor,
-                      }}
-                    >
-                      {tech}
-                    </span>
-                  ))}
+                {/* Technologies Badges & Project Tie-in Footer */}
+                <div className="pt-4 border-t border-[var(--color-border)] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                  {/* Tech stack pills */}
+                  <div className="flex flex-wrap gap-2">
+                    {currentCap.technologies.map((tech) => (
+                      <span
+                        key={tech}
+                        className="px-3 py-1 text-xs font-mono font-medium rounded-lg"
+                        style={{
+                          background: `${currentCap.accent}12`,
+                          border: `1px solid ${currentCap.accent}25`,
+                          color: currentCap.accent,
+                        }}
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+
+                  {/* Project association pill */}
+                  <a
+                    href="#projects"
+                    className="inline-flex items-center gap-1.5 text-xs font-mono font-semibold text-[var(--color-accent-primary)] hover:underline self-start sm:self-auto"
+                  >
+                    <span>{currentCap.projectLinkText}</span>
+                    <ArrowRight size={13} />
+                  </a>
                 </div>
               </div>
             </motion.div>
-          );
-        })}
+          </AnimatePresence>
+        </div>
+
+        {/* Bottom Carousel Controls (Mobile & Dot Indicators) */}
+        <div className="flex items-center justify-between w-full max-w-xs mt-6 px-4">
+          <button
+            onClick={handlePrev}
+            className="w-11 h-11 rounded-full flex items-center justify-center bg-[var(--color-bg-card)] border border-[var(--color-border)] text-[var(--color-text-primary)] hover:border-[var(--color-accent-primary)] transition-all cursor-pointer shadow-sm hover:scale-105"
+            aria-label="Previous Slide"
+          >
+            <ChevronLeft size={20} />
+          </button>
+
+          {/* Dots */}
+          <div className="flex items-center gap-2">
+            {capabilities.map((cap, idx) => (
+              <button
+                key={cap.id}
+                onClick={() => handleSelect(idx)}
+                aria-label={`Go to slide ${idx + 1}`}
+                className="transition-all duration-300 rounded-full cursor-pointer"
+                style={{
+                  width: idx === currentIndex ? "24px" : "8px",
+                  height: "8px",
+                  background: idx === currentIndex ? cap.accent : "var(--color-border)",
+                  boxShadow: idx === currentIndex ? `0 0 10px ${cap.accent}` : "none",
+                }}
+              />
+            ))}
+          </div>
+
+          <button
+            onClick={handleNext}
+            className="w-11 h-11 rounded-full flex items-center justify-center bg-[var(--color-bg-card)] border border-[var(--color-border)] text-[var(--color-text-primary)] hover:border-[var(--color-accent-primary)] transition-all cursor-pointer shadow-sm hover:scale-105"
+            aria-label="Next Slide"
+          >
+            <ChevronRight size={20} />
+          </button>
+        </div>
       </div>
     </SectionWrapper>
   );
