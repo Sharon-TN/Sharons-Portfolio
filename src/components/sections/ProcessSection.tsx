@@ -23,15 +23,36 @@ const stepColors = [
 
 export default function ProcessSection() {
   return (
-    <SectionWrapper
-      id="process"
-      label="Engineering Process"
-      title="From idea to deployment"
-      subtitle="My approach to building software products — systematic, thoughtful, and quality-focused."
-      centered
-    >
-      <div className="w-full flex justify-center mt-6">
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 w-full max-w-5xl items-stretch justify-items-center">
+    <SectionWrapper id="process">
+      <div className="w-full flex flex-col items-center justify-center text-center max-w-5xl mx-auto">
+        {/* Centered Section Header directly above the 8 boxes */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          className="w-full flex flex-col items-center justify-center text-center mb-10"
+        >
+          {/* Symmetrical Label */}
+          <div className="flex items-center justify-center gap-3 text-xs sm:text-sm font-mono font-bold tracking-widest uppercase text-[var(--color-accent-primary)] mb-3">
+            <span className="w-8 h-[1px] bg-[var(--color-accent-primary)]" />
+            <span>ENGINEERING PROCESS</span>
+            <span className="w-8 h-[1px] bg-[var(--color-accent-primary)]" />
+          </div>
+
+          {/* Centered Heading */}
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[var(--color-text-primary)] text-center tracking-tight mb-4 max-w-2xl mx-auto">
+            From idea to deployment
+          </h2>
+
+          {/* Centered Subtitle */}
+          <p className="text-sm sm:text-base text-[var(--color-text-secondary)] text-center max-w-xl mx-auto leading-relaxed">
+            My approach to building software products — systematic, thoughtful, and quality-focused.
+          </p>
+        </motion.div>
+
+        {/* 8 Process Boxes Grid */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 w-full items-stretch justify-items-center">
           {developmentProcess.map((step, i) => (
             <motion.div
               key={step.step}
