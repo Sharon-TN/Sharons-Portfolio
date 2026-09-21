@@ -7,7 +7,6 @@ import ScrollProgress from "@/components/ui/ScrollProgress";
 import CustomCursor from "@/components/ui/CustomCursor";
 import HeroSection from "@/components/sections/HeroSection";
 import AboutSection from "@/components/sections/AboutSection";
-import CapabilitiesSection from "@/components/sections/CapabilitiesSection";
 import SkillsSection from "@/components/sections/SkillsSection";
 import ProjectsSection from "@/components/sections/ProjectsSection";
 import ExperienceSection from "@/components/sections/ExperienceSection";
@@ -39,7 +38,6 @@ export default function PortfolioClient() {
         <ProjectsSection />
         <ProcessSection />
         <ExperienceSection />
-        <CapabilitiesSection />
         <EducationSection />
         <ResumeSection />
         <ContactSection />

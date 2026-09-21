@@ -48,44 +48,8 @@ export const navLinks = [
   { label: "Skills", href: "#skills" },
   { label: "Projects", href: "#projects" },
   { label: "Experience", href: "#experience" },
-  { label: "Capabilities", href: "#capabilities" },
   { label: "Education", href: "#education" },
   { label: "Contact", href: "#contact" },
-];
-
-export const capabilities = [
-  {
-    id: "fullstack",
-    title: "Full Stack Applications",
-    description: "Building scalable web platforms with React, FastAPI, Node.js, Express, and MongoDB.",
-    icon: "layers",
-    color: "from-indigo-500 to-cyan-500",
-    technologies: ["React.js", "Node.js", "Express.js", "FastAPI", "MongoDB", "REST APIs"],
-  },
-  {
-    id: "ai",
-    title: "Artificial Intelligence & ML",
-    description: "Developing AI-driven emergency planners, generative AI integrations, and predictive models.",
-    icon: "brain",
-    color: "from-purple-500 to-pink-500",
-    technologies: ["Python", "Gemini AI", "Machine Learning", "Deep Learning", "Generative AI"],
-  },
-  {
-    id: "cloud",
-    title: "Cloud & DevOps",
-    description: "Deploying and managing applications using Google Cloud Platform, AWS, Git, and Vercel.",
-    icon: "server",
-    color: "from-emerald-500 to-teal-500",
-    technologies: ["GCP", "AWS", "Docker", "Git", "GitHub", "Vercel"],
-  },
-  {
-    id: "frontend",
-    title: "Interactive Web Experiences",
-    description: "Designing responsive, user-friendly interfaces with modern styling and 3D graphics.",
-    icon: "palette",
-    color: "from-amber-500 to-orange-500",
-    technologies: ["React.js", "JavaScript", "Three.js", "Tailwind CSS", "Bootstrap"],
-  },
 ];
 
 export const skills = {

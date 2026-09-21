@@ -33,7 +33,6 @@ All data is centrally managed in **`src/data/portfolio.ts`**. You do not need to
 
 Simply edit `src/data/portfolio.ts` to update:
 - **Personal Info**: Name, bio, email, social links, resume URL
-- **Capabilities**: Key engineering areas (Full Stack, UI Design, Backend, AI)
 - **Skills & Tech Universe**: Frontend, Backend, Databases, AI/ML tools, DevOps
 - **Projects**: Project title, tagline, problem, solution, tech stack, architecture, live demo & GitHub links
 - **Experience**: Internships, freelance work, duration, bullet points
@@ -48,7 +47,6 @@ Simply edit `src/data/portfolio.ts` to update:
 - **Modular Sections**:
   - `HeroSection`: Intro, role rotator, interactive 3D core
   - `AboutSection`: Interactive journey timeline, quick info cards, bio
-  - `CapabilitiesSection`: 4 core engineering domains with gradient card glows
   - `ProjectsSection`: Filterable project grid, expandable problem/solution/architecture details
   - `SkillsSection`: Dynamic category selector, animated skill bars, full technology tag cloud
   - `ProcessSection`: 8-step engineering pipeline from concept to deployment
