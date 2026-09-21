@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { FileText, Eye, Download } from "lucide-react";
+import { FileText, Eye } from "lucide-react";
 import { personalInfo } from "@/data/portfolio";
 
 export default function ResumeSection() {
@@ -54,26 +54,17 @@ export default function ResumeSection() {
             My resume has the complete picture — education, skills, projects, experience, and everything in between.
           </p>
 
-          {/* Centered CTA Buttons */}
-          <div className="w-full flex flex-wrap justify-center items-center gap-4">
+          {/* Centered CTA Button */}
+          <div className="w-full flex justify-center items-center text-center mx-auto">
             <a
               href={personalInfo.resumeUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="btn btn-primary text-base px-8 py-3.5 inline-flex items-center justify-center gap-2 shadow-lg hover:shadow-indigo-500/25 transition-all"
+              className="btn btn-primary text-base px-8 py-3.5 inline-flex items-center justify-center gap-2 shadow-lg hover:shadow-indigo-500/25 transition-all mx-auto"
               id="resume-view-btn"
             >
               <Eye size={20} />
               View Resume
-            </a>
-            <a
-              href="/T_N_Sharon_Resume.pdf"
-              download="T_N_Sharon_Resume.pdf"
-              className="btn bg-white/10 hover:bg-white/20 text-white border border-white/20 text-base px-8 py-3.5 inline-flex items-center justify-center gap-2 backdrop-blur-sm transition-all"
-              id="resume-download-btn"
-            >
-              <Download size={20} />
-              Download PDF
             </a>
           </div>
         </motion.div>

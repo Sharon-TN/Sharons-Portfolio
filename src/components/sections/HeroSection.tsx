@@ -369,11 +369,28 @@ export default function HeroSection() {
               href={personalInfo.resumeUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="btn bg-white/10 hover:bg-white/20 text-white border border-white/30 backdrop-blur-md transition-all duration-200"
+              className="btn text-white transition-all duration-300 group"
+              style={{
+                background: "linear-gradient(135deg, #0b1f3d 0%, #123769 100%)",
+                border: "1px solid rgba(59, 130, 246, 0.5)",
+                boxShadow: "0 4px 18px rgba(11, 31, 61, 0.5)",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = "linear-gradient(135deg, #0f2c57 0%, #1a4d94 100%)";
+                e.currentTarget.style.borderColor = "rgba(96, 165, 250, 0.85)";
+                e.currentTarget.style.boxShadow = "0 6px 24px rgba(26, 77, 148, 0.6)";
+                e.currentTarget.style.transform = "translateY(-2px)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = "linear-gradient(135deg, #0b1f3d 0%, #123769 100%)";
+                e.currentTarget.style.borderColor = "rgba(59, 130, 246, 0.5)";
+                e.currentTarget.style.boxShadow = "0 4px 18px rgba(11, 31, 61, 0.5)";
+                e.currentTarget.style.transform = "translateY(0)";
+              }}
               id="hero-resume-btn"
             >
-              <FileText size={18} />
-              View Resume
+              <FileText size={18} className="text-blue-200 group-hover:text-white transition-colors" />
+              <span>View Resume</span>
             </a>
           </motion.div>
 
