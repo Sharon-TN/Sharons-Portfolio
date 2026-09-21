@@ -61,15 +61,31 @@ export default function SectionWrapper({
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
             className={centered ? "w-full flex flex-col items-center justify-center text-center mb-10 max-w-3xl mx-auto" : "mb-6"}
+            style={centered ? { textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" } : undefined}
           >
             {label && (
-              <div className={`section-label ${centered ? "justify-center !text-center mx-auto" : ""}`}>{label}</div>
+              <div
+                className={`section-label ${centered ? "justify-center center-label !text-center mx-auto" : ""}`}
+                style={centered ? { justifyContent: "center", textAlign: "center", margin: "0 auto var(--space-md) auto" } : undefined}
+              >
+                {label}
+              </div>
             )}
             {title && (
-              <h2 className={`section-title text-[var(--color-text-primary)] ${centered ? "!text-center mx-auto" : ""}`}>{title}</h2>
+              <h2
+                className={`section-title text-[var(--color-text-primary)] ${centered ? "center-title text-center !text-center mx-auto" : ""}`}
+                style={centered ? { textAlign: "center", marginLeft: "auto", marginRight: "auto", width: "100%" } : undefined}
+              >
+                {title}
+              </h2>
             )}
             {subtitle && (
-              <p className={`section-subtitle ${centered ? "!text-center mx-auto" : ""}`}>{subtitle}</p>
+              <p
+                className={`section-subtitle ${centered ? "center-subtitle text-center !text-center mx-auto" : ""}`}
+                style={centered ? { textAlign: "center", marginLeft: "auto", marginRight: "auto", width: "100%" } : undefined}
+              >
+                {subtitle}
+              </p>
             )}
           </motion.div>
         )}

@@ -24,10 +24,11 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
       transition={{ delay: index * 0.1, duration: 0.5 }}
-      className="group rounded-2xl overflow-hidden transition-all duration-500 flex flex-col justify-between h-full shadow-sm"
+      className="group rounded-none overflow-hidden transition-all duration-500 flex flex-col justify-between h-full shadow-sm"
       style={{
         background: "var(--color-bg-card)",
         border: "1px solid var(--color-border)",
+        borderRadius: "0px",
       }}
       onMouseEnter={(e) => {
         (e.currentTarget as HTMLElement).style.borderColor = `${color}45`;

@@ -286,6 +286,13 @@ body {
   background: var(--color-accent-primary);
 }
 
+.section-label.justify-center {
+  justify-content: center !important;
+  text-align: center !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
 .section-label.justify-center::after {
   content: '';
   width: 2rem;
@@ -301,11 +308,25 @@ body {
   margin-bottom: var(--space-lg);
 }
 
+.section-title.text-center,
+.section-title.center-title {
+  text-align: center !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
 .section-subtitle {
   font-size: clamp(1rem, 2vw, 1.25rem);
   color: var(--color-text-secondary);
   max-width: 600px;
   line-height: 1.7;
+}
+
+.section-subtitle.text-center,
+.section-subtitle.center-subtitle {
+  text-align: center !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
 }
 
 /* Button System */
