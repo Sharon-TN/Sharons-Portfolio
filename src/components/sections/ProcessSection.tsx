@@ -30,64 +30,83 @@ export default function ProcessSection() {
       subtitle="My approach to building software products — systematic, thoughtful, and quality-focused."
       centered
     >
-      <div className="mt-12 grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-4xl mx-auto">
-        {developmentProcess.map((step, i) => (
-          <motion.div
-            key={step.step}
-            initial={{ opacity: 0, scale: 0.8 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: i * 0.07, duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-            className="relative group"
-          >
-            <div
-              className="flex flex-col items-center text-center p-5 rounded-xl transition-all duration-300 hover:-translate-y-1"
-              style={{
-                background: "var(--color-bg-card)",
-                border: "1px solid var(--color-border)",
-              }}
-              onMouseEnter={(e) => {
-                (e.currentTarget as HTMLElement).style.borderColor = `${stepColors[i]}30`;
-                (e.currentTarget as HTMLElement).style.boxShadow = `0 0 25px ${stepColors[i]}08`;
-              }}
-              onMouseLeave={(e) => {
-                (e.currentTarget as HTMLElement).style.borderColor = "var(--color-border)";
-                (e.currentTarget as HTMLElement).style.boxShadow = "none";
-              }}
+      <div className="w-full flex justify-center mt-6">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 w-full max-w-5xl items-stretch justify-items-center">
+          {developmentProcess.map((step, i) => (
+            <motion.div
+              key={step.step}
+              initial={{ opacity: 0, scale: 0.85 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.06, duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+              className="relative group w-full h-full"
             >
-              {/* Step number */}
-              <span className="text-[10px] font-mono text-[var(--color-text-muted)] mb-2">
-                0{i + 1}
-              </span>
-
-              {/* Icon */}
               <div
-                className="w-11 h-11 rounded-xl flex items-center justify-center mb-3 transition-transform duration-300 group-hover:scale-110"
+                className="w-full h-full flex flex-col items-center text-center justify-start p-5 sm:p-6 rounded-2xl transition-all duration-300 hover:-translate-y-1.5 shadow-sm"
                 style={{
-                  background: `${stepColors[i]}12`,
-                  color: stepColors[i],
+                  background: "var(--color-bg-card)",
+                  border: "1px solid var(--color-border)",
+                }}
+                onMouseEnter={(e) => {
+                  (e.currentTarget as HTMLElement).style.borderColor = `${stepColors[i]}45`;
+                  (e.currentTarget as HTMLElement).style.boxShadow = `0 8px 30px rgba(0,0,0,0.08), 0 0 25px ${stepColors[i]}15`;
+                }}
+                onMouseLeave={(e) => {
+                  (e.currentTarget as HTMLElement).style.borderColor = "var(--color-border)";
+                  (e.currentTarget as HTMLElement).style.boxShadow = "none";
                 }}
               >
-                {iconMap[step.icon] || <Lightbulb size={22} />}
+                {/* Step number */}
+                <span
+                  className="text-[11px] font-mono font-bold px-2.5 py-0.5 rounded-full mb-3"
+                  style={{
+                    background: `${stepColors[i]}12`,
+                    color: stepColors[i],
+                    border: `1px solid ${stepColors[i]}25`,
+                  }}
+                >
+                  0{i + 1}
+                </span>
+
+                {/* Icon */}
+                <div
+                  className="w-12 h-12 rounded-xl flex items-center justify-center mb-3.5 transition-transform duration-300 group-hover:scale-110 shadow-inner"
+                  style={{
+                    background: `linear-gradient(135deg, ${stepColors[i]}20, ${stepColors[i]}08)`,
+                    border: `1px solid ${stepColors[i]}30`,
+                    color: stepColors[i],
+                  }}
+                >
+                  {iconMap[step.icon] || <Lightbulb size={22} />}
+                </div>
+
+                {/* Title */}
+                <h3 className="text-sm sm:text-base font-bold text-[var(--color-text-primary)] mb-1.5 group-hover:text-[var(--color-accent-primary)] transition-colors">
+                  {step.step}
+                </h3>
+
+                {/* Description */}
+                <p className="text-xs text-[var(--color-text-muted)] leading-relaxed mt-auto">
+                  {step.description}
+                </p>
               </div>
 
-              {/* Text */}
-              <h3 className="text-sm font-semibold text-[var(--color-text-primary)] mb-1">
-                {step.step}
-              </h3>
-              <p className="text-xs text-[var(--color-text-muted)] leading-relaxed">
-                {step.description}
-              </p>
-            </div>
-
-            {/* Connector arrow (not on last item in each row) */}
-            {i < developmentProcess.length - 1 && (i + 1) % 4 !== 0 && (
-              <div className="absolute top-1/2 -right-2 hidden sm:block text-[var(--color-border)]">
-                →
-              </div>
-            )}
-          </motion.div>
-        ))}
+              {/* Connector arrow between steps in same row (desktop only) */}
+              {i < developmentProcess.length - 1 && (i + 1) % 4 !== 0 && (
+                <div
+                  className="hidden lg:flex absolute top-1/2 -right-3.5 -translate-y-1/2 z-20 w-6 h-6 rounded-full items-center justify-center pointer-events-none text-xs font-bold"
+                  style={{
+                    background: "var(--color-bg-tertiary)",
+                    border: "1px solid var(--color-border)",
+                    color: "var(--color-text-muted)",
+                  }}
+                >
+                  →
+                </div>
+              )}
+            </motion.div>
+          ))}
+        </div>
       </div>
     </SectionWrapper>
   );

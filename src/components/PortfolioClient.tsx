@@ -35,11 +35,11 @@ export default function PortfolioClient() {
       <main className="flex-1">
         <HeroSection />
         <AboutSection />
-        <CapabilitiesSection />
-        <ProjectsSection />
         <SkillsSection />
+        <ProjectsSection />
         <ProcessSection />
         <ExperienceSection />
+        <CapabilitiesSection />
         <EducationSection />
         <ResumeSection />
         <ContactSection />
